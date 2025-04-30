@@ -8,12 +8,49 @@ datasource db {
 }
 
 model User {
-  @@map("user") // ✅ this tells Prisma to look for lowercase 'user' table
-
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Restaurant {
+  id          String     @id @default(uuid())
+  name        String
+  description String?
+  logo        String?    // URL to logo image
+  themeColor  String?    // Primary color for the restaurant's theme
+  bgColor     String?    // Background color for the restaurant's menu
+  menuItems   MenuItem[]
+  tables      Table[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model MenuItem {
+  id           String     @id @default(uuid())
+  name         String
+  description  String?
+  price        Float
+  image        String?    // URL to item image
+  category     String     // e.g., "Appetizers", "Main Course", "Desserts"
+  isAvailable  Boolean    @default(true)
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Table {
+  id           String     @id @default(uuid())
+  tableNumber  Int
+  qrCode       String     // URL or unique identifier for the QR code
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([restaurantId, tableNumber]) // Ensure table numbers are unique within a restaurant
 }

@@ -1,11 +1,16 @@
 {
   "name": "dinen-dash",
   "private": true,
-
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix dine-n-dash-frontend\""
   },
   "devDependencies": {
-    "concurrently": "^8.0.0"
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.4"
   }
 }
