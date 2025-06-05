@@ -19,7 +19,7 @@ exports.register = async ({ name, email, password }) => {
 
   // Generate a token
   const token = jwt.sign(
-    { id: user.id, name: user.name },
+    { userId: user.id, name: user.name },
     process.env.JWT_SECRET,
     { expiresIn: '7d' }
   );
@@ -39,7 +39,7 @@ exports.login = async ({ email, password }) => {
 
   // Generate a token
   const token = jwt.sign(
-    { id: user.id, name: user.name },
+    { userId: user.id, name: user.name },
     process.env.JWT_SECRET,
     { expiresIn: '7d' }
   );
